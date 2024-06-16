@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 
 # Daten
-generationen = ["Gen Z (1997+)", "Millennials (1981-1996)", "Gen X (1965-1980)", "Baby Boomers (1946-1964)"][::-1]
+generationen = ["Gen Z<br>(1997+)", "Millennials<br>(1981-1996)", "Gen X<br>(1965-1980)", "Baby Boomers<br>(1946-1964)"][::-1]
 deutschland = [22, 10, 10, 5][::-1]
 weltweit = [18, 10, 6, 4][::-1]
 
@@ -19,7 +19,8 @@ fig.add_trace(go.Bar(
     name='Deutschland',
     orientation='h',
     marker_color=deutschland_farbe,
-    hovertemplate='%{x}%<br><b>Deutschland</b><extra></extra>'
+    hovertemplate='<b>%{x}%</b><b> Deutschland<br>%{y}<br></b><extra></extra>',
+    hoverlabel=dict(font_size=26)
 ))
 
 # Balken für Weltweit hinzufügen
@@ -29,71 +30,74 @@ fig.add_trace(go.Bar(
     name='Weltweit',
     orientation='h',
     marker_color=weltweit_farbe,
-    hovertemplate='%{x}%<br><b>Weltweit</b><extra></extra>'
+    hovertemplate='<b>%{x}%</b><b> Weltweit<br>%{y}<br></b><extra></extra>',
+    hoverlabel=dict(font_size=26)
 ))
 
 # Layout für den Dark Mode aktualisieren
+fig.update_yaxes(
+    tickmode='array',
+    tickvals=[0, 1, 2, 3],
+    ticktext=["Baby Boomers  <br>(1946-1964)  ", "Gen X  <br>(1965-1980)  ", "Millennials  <br>(1981-1996)  ", "Gen Z  <br>(1997+)  "],
+    ticklabelposition="outside",
+    ticklen=3,
+    zeroline=False,
+    showline=False,
+    showgrid=False,
+    title_standoff=10 
+)
+
+
 fig.update_layout(
     title={
-        'text': 'Prozentsatz der Menschen, die sich als LGBT+ identifizieren nach Generation (Deutschland vs Weltweit)',
+        'text': 'Prozentsatz der Menschen, die sich als LGBT+ identifizieren nach Generation. <br> Deutschland vs. Weltweit.',
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
-        'yanchor': 'top'
+        'yanchor': 'top',
+        'font': {'size': 34, 'color': 'white'}
     },
     annotations=[
         {
-            'text': 'Erstellt von: Autorin<br>Quelle: Ipsos Global Advisor Studie',
+            'text': 'Erstellt von: Anna Neifer <br>Quelle: Ipsos Global Advisor Studie',
             'xref': 'paper',
             'yref': 'paper',
-            'x': 0,
-            'y': -0.2,
+            'x': 0.9,
+            'y': -0.1,
             'showarrow': False,
-            'font': {
-                'size': 12,
-                'color': 'white'
-            }
+            'font': {'size': 12, 'color': 'white'}
         }
     ],
     xaxis=dict(
-        title='Prozentsatz',
-        titlefont_size=16,
-        tickfont_size=14,
-        color='white'
+        domain=[0.1, 1], 
+        title_text='',
+        tickfont_size=22,
+        fixedrange=True,
+        color='white',
+        showline=False,
+        showgrid=False,
+        showticklabels=False
     ),
-    yaxis=dict(
-        title='Generation',
-        titlefont_size=16,
-        tickfont_size=14,
-        color='white'
+   yaxis=dict(
+        title_text='',
+        tickfont=dict(size=32, color='white'),
+        fixedrange=True,
+        showticklabels=True,
+         # Adjust this value to increase the space
     ),
     legend=dict(
-        x=0.02,
-        y=1.05,
+        x=0.9,  # Koordinaten anpassen, um die Legende zu verschieben
+        y=-0.1,
         bgcolor='rgba(0,0,0,0)',
         bordercolor='rgba(255,255,255,0.5)',
-        font=dict(
-            color='white'
-        )
+        font=dict(color='white')
     ),
+    margin=dict(l=150, r=50, t=100, b=100),  # Erhöhter linker Rand für mehr Platz
     barmode='group',
     bargap=0.15,
     plot_bgcolor='rgb(17, 17, 17)',
     paper_bgcolor='rgb(17, 17, 17)',
-    font=dict(
-        color='white'
-    )
-)
-
-# LGBT+ Symbol hinzufügen
-fig.add_layout_image(
-    dict(
-        source="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Flag_of_LGBT.svg/1200px-Flag_of_LGBT.svg.png",
-        xref="paper", yref="paper",
-        x=1, y=1,
-        sizex=0.15, sizey=0.15,
-        xanchor="right", yanchor="bottom"
-    )
+    font=dict(color='white')
 )
 
 # Diagramm anzeigen
