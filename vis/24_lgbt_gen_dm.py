@@ -59,7 +59,7 @@ fig.update_layout(
     },
     annotations=[
         {
-            'text': 'Erstellt von: Anna Neifer <br>Quelle: Ipsos Global Advisor Studie',
+            'text': 'Erstellt für datapulse.de von Anna Neifer <br>Quelle: Ipsos Global Advisor Studie',
             'xref': 'paper',
             'yref': 'paper',
             'x': 0.9,
@@ -102,3 +102,5 @@ fig.update_layout(
 
 # Diagramm anzeigen
 fig.show()
+
+fig.write_html('/home/an/git/Aneifer/data-studies/24_lgbtq.html', full_html=True)
